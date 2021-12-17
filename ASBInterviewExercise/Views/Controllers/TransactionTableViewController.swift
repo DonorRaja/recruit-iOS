@@ -35,7 +35,9 @@ class TransactionTableViewController: UITableViewController {
         
     }
     
-    //MARK: - JSON Request
+    //MARK: - Functions
+    
+    
     func getTransactionDataRequest() {
         
         if let url = URL(string: ASB.API.apiURL + ASB.API.transactions) {
@@ -75,6 +77,13 @@ class TransactionTableViewController: UITableViewController {
 
         return value.count
     }
+    
+    func requestForTransactionList(indexPath: IndexPath) -> [Transaction] {
+        let sectionList = self.transactionList[indexPath.section]
+         let rowsList = self.currentTransactions[sectionList]
+        
+        return rowsList!
+    }
 
     // MARK: - Table view data source
 
@@ -99,11 +108,10 @@ class TransactionTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "transactionCell", for: indexPath) as! TransactionTableViewCell
 
-       let sectionList = self.transactionList[indexPath.section]
-        let rowsList = self.currentTransactions[sectionList]
+        let rowsList = self.requestForTransactionList(indexPath: indexPath)
         
         // Configure the cell...
-        let transactionData = rowsList![indexPath.row]
+        let transactionData = rowsList[indexPath.row]
         cell.transactionName.text = transactionData.summary
         
         var detailText = ""
@@ -177,7 +185,8 @@ class TransactionTableViewController: UITableViewController {
         if segue.identifier == "sendDataSegue" {
             let indexPath = sender as! IndexPath
             let vc = segue.destination as! TransactionDetailsViewController
-            let transactionDetail = self.transactions[indexPath.row]
+            let rowsList = self.requestForTransactionList(indexPath: sender as! IndexPath)
+            let transactionDetail = rowsList[indexPath.row]
             vc.transactionDetails = transactionDetail
         }
     }
