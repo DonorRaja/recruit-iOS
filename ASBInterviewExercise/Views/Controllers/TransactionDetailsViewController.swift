@@ -13,17 +13,13 @@ class TransactionDetailsViewController: UIViewController {
     //MARK: - Outlets
     
     @IBOutlet weak var transactionName: UILabel!
-    
     @IBOutlet weak var transactionDate: UILabel!
-    
     @IBOutlet weak var transactionView: UIView!
     @IBOutlet weak var transactionType: UILabel!
-    
     @IBOutlet weak var totalAmount: UILabel!
     @IBOutlet weak var gstLabel: UILabel!
     @IBOutlet weak var amountLabel: UILabel!
     @IBOutlet weak var transactionViewHeight: NSLayoutConstraint!
-    
     @IBOutlet weak var totalAmountTopConstraint: NSLayoutConstraint!
     
     
@@ -38,6 +34,8 @@ class TransactionDetailsViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    
+    //MARK: - Functions
     
     func loadTransactionDetails(){
         
